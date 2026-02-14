@@ -2,6 +2,37 @@
 
 This repo contains a minimal example for running **NGINX** on Kubernetes.
 
+## Quick start (kind + ingress-nginx)
+
+This will:
+
+- Create a local kind cluster (with ports 80/443 mapped to your host)
+- Install **ingress-nginx**
+- Deploy NGINX (Deployment + Service + Ingress)
+
+```bash
+chmod +x scripts/kind-up.sh scripts/kind-down.sh
+./scripts/kind-up.sh
+```
+
+Access it:
+
+```bash
+curl -H 'Host: nginx.local' http://127.0.0.1/
+```
+
+If you want the browser-friendly hostname, add this on your host machine:
+
+```text
+127.0.0.1 nginx.local
+```
+
+Tear down:
+
+```bash
+./scripts/kind-down.sh
+```
+
 ## Prerequisites (local cluster)
 
 You need a Kubernetes cluster and `kubectl` access.

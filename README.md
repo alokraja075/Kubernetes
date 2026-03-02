@@ -33,6 +33,39 @@ Tear down:
 ./scripts/kind-down.sh
 ```
 
+## SonarQube (Kubernetes)
+
+This repo includes a simple SonarQube + Postgres setup under [k8s/sonarqube/](k8s/sonarqube/).
+
+### Quick start (kind)
+
+SonarQube needs `vm.max_map_count` on the Kubernetes node (it runs Elasticsearch internally). On kind, the node is a Docker container, so the helper script sets the sysctls for you.
+
+```bash
+chmod +x scripts/sonarqube-up.sh scripts/sonarqube-down.sh
+./scripts/sonarqube-up.sh
+```
+
+Access it:
+
+```bash
+curl -H 'Host: sonarqube.local' http://127.0.0.1/
+```
+
+Optional hosts entry on your machine:
+
+```text
+127.0.0.1 sonarqube.local
+```
+
+Default SonarQube login (upstream defaults): `admin` / `admin`.
+
+Cleanup:
+
+```bash
+./scripts/sonarqube-down.sh
+```
+
 ## Prerequisites (local cluster)
 
 You need a Kubernetes cluster and `kubectl` access.

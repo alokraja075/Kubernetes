@@ -100,8 +100,8 @@ kind delete cluster --name demo
 Apply the manifests:
 
 ```bash
-kubectl apply -f k8s/nginx-deployment.yaml
-kubectl apply -f k8s/nginx-service.yaml
+kubectl apply -f k8s/nginx/nginx-deployment.yaml
+kubectl apply -f k8s/nginx/nginx-service.yaml
 kubectl rollout status deployment/nginx
 kubectl get pods -l app=nginx
 kubectl get svc nginx
@@ -119,7 +119,7 @@ Then open: http://localhost:8080
 
 ### Option B: Ingress (needs an Ingress controller)
 
-This repo includes an example Ingress at [k8s/nginx-ingress.yaml](k8s/nginx-ingress.yaml) using:
+This repo includes an example Ingress at [k8s/nginx/nginx-ingress.yaml](k8s/nginx/nginx-ingress.yaml) using:
 
 - host: `nginx.local`
 - ingressClassName: `nginx`
@@ -127,7 +127,7 @@ This repo includes an example Ingress at [k8s/nginx-ingress.yaml](k8s/nginx-ingr
 Apply it:
 
 ```bash
-kubectl apply -f k8s/nginx-ingress.yaml
+kubectl apply -f k8s/nginx/nginx-ingress.yaml
 ```
 
 For local clusters (like kind), you must also install an Ingress controller such as **ingress-nginx**.
@@ -144,7 +144,11 @@ minikube service nginx --url
 ## Cleanup
 
 ```bash
-kubectl delete -f k8s/nginx-ingress.yaml || true
-kubectl delete -f k8s/nginx-service.yaml
-kubectl delete -f k8s/nginx-deployment.yaml
+kubectl delete -f k8s/nginx/nginx-ingress.yaml || true
+kubectl delete -f k8s/nginx/nginx-service.yaml
+kubectl delete -f k8s/nginx/nginx-deployment.yaml
 ```
+
+## Istio + NGINX (service mesh example)
+
+See the Istio example manifests under [k8s/istio/](k8s/istio/).

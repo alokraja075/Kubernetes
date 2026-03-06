@@ -43,9 +43,9 @@ kubectl apply -f "$INGRESS_MANIFEST_URL"
 kubectl -n ingress-nginx wait --for=condition=Available deployment/ingress-nginx-controller --timeout=300s
 
 echo "deploying nginx (Deployment + Service + Ingress)"
-kubectl apply -f k8s/nginx-deployment.yaml
-kubectl apply -f k8s/nginx-service.yaml
-kubectl apply -f k8s/nginx-ingress.yaml
+kubectl apply -f k8s/nginx/nginx-deployment.yaml
+kubectl apply -f k8s/nginx/nginx-service.yaml
+kubectl apply -f k8s/nginx/nginx-ingress.yaml
 
 kubectl rollout status deployment/nginx --timeout=180s
 

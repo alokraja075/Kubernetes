@@ -151,4 +151,47 @@ kubectl delete -f k8s/nginx/nginx-deployment.yaml
 
 ## Istio + NGINX (service mesh example)
 
-See the Istio example manifests under [k8s/istio/](k8s/istio/).
+This is a minimal example of exposing the same NGINX app through **Istio Ingress Gateway** using an Istio `Gateway` + `VirtualService`.
+
+Manifests live under [k8s/istio/](k8s/istio/).
+
+### Quick start (kind)
+
+1) Create the cluster (if you don't already have one):
+
+```bash
+chmod +x scripts/kind-up.sh scripts/kind-down.sh
+./scripts/kind-up.sh
+```
+
+2) Install Istio + deploy NGINX + configure routing:
+
+```bash
+chmod +x scripts/istio-nginx-up.sh scripts/istio-nginx-down.sh
+./scripts/istio-nginx-up.sh
+```
+
+3) Access it via port-forward (Istio gateway is inside the cluster):
+
+```bash
+kubectl -n istio-system port-forward svc/istio-ingressgateway 8080:80
+```
+
+Then (in a different terminal):
+
+```bash
+curl -H 'Host: nginx.local' http://127.0.0.1:8080/
+```
+
+Optional hosts entry on your machine:
+
+```text
+127.0.0.1 nginx.local
+```
+
+Cleanup:
+
+```bash
+./scripts/istio-nginx-down.sh
+./scripts/kind-down.sh
+```

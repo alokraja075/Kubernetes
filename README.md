@@ -160,9 +160,11 @@ Manifests live under [k8s/istio/](k8s/istio/).
 1) Create the cluster (if you don't already have one):
 
 ```bash
-chmod +x scripts/kind-up.sh scripts/kind-down.sh
-./scripts/kind-up.sh
+kind create cluster --name demo --config k8s/kind-config.yaml
+kubectl wait --for=condition=Ready nodes --all --timeout=180s
 ```
+
+If you prefer, you can also use `./scripts/kind-up.sh` (it additionally installs ingress-nginx and the baseline Ingress example).
 
 2) Install Istio + deploy NGINX + configure routing:
 
@@ -193,5 +195,5 @@ Cleanup:
 
 ```bash
 ./scripts/istio-nginx-down.sh
-./scripts/kind-down.sh
+kind delete cluster --name demo
 ```
